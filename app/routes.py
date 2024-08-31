@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from app import app, mysql
 from app.services import process_images_request_product_wise, generate_save_directory, generate_local_original_image_path
 
@@ -37,7 +37,7 @@ def create_request_id():
     else:
         return render_template('upload.html', message="Please upload a CSV file.")
 
-@app.route('/upload')
+@app.route('/upload')   #Upload API as well as webhook
 def upload():
     return render_template('upload.html')
 
@@ -79,3 +79,4 @@ def request_page_detail(request_id):
     cursor.close()
 
     return render_template('requestDetail.html', request_id=request_id, all_requests_images=all_requests_images)
+
